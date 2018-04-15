@@ -1,7 +1,7 @@
-package com.github.ogapants.myapplication
+package com.github.ogapants.kttemplate
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 

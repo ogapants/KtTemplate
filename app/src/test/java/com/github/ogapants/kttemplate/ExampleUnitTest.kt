@@ -1,4 +1,4 @@
-package com.github.ogapants.myapplication
+package com.github.ogapants.kttemplate
 
 import org.junit.Test
 
