@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -10,9 +8,17 @@ android {
         applicationId "com.github.ogapants.kttemplate"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+
+        def versionMajor = 0
+        def versionMinor = 0
+        def versionPatch = 1
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch * 1
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding {
+        enabled = true
     }
     buildTypes {
         release {
@@ -24,10 +30,61 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // kotlin
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    // Support Library
+    def support_lib_ver = '27.1.1'
+    implementation "com.android.support:appcompat-v7:$support_lib_ver"
+    implementation "com.android.support:design:$support_lib_ver"
+    implementation "com.android.support:support-v4:$support_lib_ver"
+    implementation "com.android.support:cardview-v7:$support_lib_ver"
+    implementation "com.android.support:recyclerview-v7:$support_lib_ver"
+    implementation "com.android.support:exifinterface:$support_lib_ver"
+    implementation "com.android.support:customtabs:$support_lib_ver"
+    debugImplementation 'com.android.support:multidex:1.0.3'
+
+    // Firebase
+    def firebase_ver = '12.0.1'
+    implementation "com.google.firebase:firebase-analytics:$firebase_ver"
+    implementation "com.google.firebase:firebase-core:$firebase_ver"
+    implementation "com.google.firebase:firebase-messaging:$firebase_ver"
+    implementation "com.google.firebase:firebase-config:$firebase_ver"
+
+    // Utility
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation 'com.github.hotchemi:permissionsdispatcher:3.1.0'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
+
+    // Network
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+
+    // View
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+    // DI
+    implementation 'com.google.dagger:dagger:2.15'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
+    // Debug
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    // Test
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation "org.robolectric:robolectric:3.6.1"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
