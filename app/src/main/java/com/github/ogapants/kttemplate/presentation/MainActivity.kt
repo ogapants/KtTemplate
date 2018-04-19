@@ -1,24 +1,48 @@
 package com.github.ogapants.kttemplate.presentation
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.github.ogapants.kttemplate.R
 import com.github.ogapants.kttemplate.domain.UseCase
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var viewModel: MainViewModel
 
+    @Inject
+    lateinit var navigationController: NavigationController
+
+    @Inject
+    lateinit var dispatchingFragmentInjector: DispatchingAndroidInjector<Fragment>
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingFragmentInjector
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AndroidInjection.inject(this)
 
         viewModel.ooo()
 
         UseCase().execute()
+
+        replace()
+
+        navigationController.go(": just :")
+    }
+
+    private fun replace() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, MainFragment())
+                .commit()
     }
 }
+
