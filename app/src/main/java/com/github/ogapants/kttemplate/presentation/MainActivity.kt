@@ -2,9 +2,9 @@ package com.github.ogapants.kttemplate.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.github.ogapants.kttemplate.App
 import com.github.ogapants.kttemplate.R
 import com.github.ogapants.kttemplate.domain.UseCase
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        (application as? App)?.appComponent?.inject(this)
+        AndroidInjection.inject(this)
 
         viewModel.ooo()
 

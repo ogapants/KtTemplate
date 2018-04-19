@@ -1,13 +1,18 @@
 package com.github.ogapants.kttemplate.di
 
 import android.app.Application
-import com.github.ogapants.kttemplate.presentation.MainActivity
+import com.github.ogapants.kttemplate.App
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [
+    AndroidInjectionModule::class,
+    AppModule::class,
+    ActivityModule::class
+])
 interface AppComponent {
 
     @Component.Builder
@@ -18,5 +23,5 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(activity: MainActivity)
+    fun inject(app: App)
 }
